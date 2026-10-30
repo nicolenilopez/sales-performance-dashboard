@@ -2,7 +2,7 @@
 
 ## Source and scope
 
-The formulas below are transcribed from the project's exported **`_Measures` TMDL**. They describe the actual semantic-model definitions supplied for this project—not generic examples. Only selected measures are shown to keep this portfolio documentation focused.
+Most formulas below are transcribed from the project's exported **`_Measures` TMDL**. Two additional purchase-frequency measures were supplied during subsequent report development and are identified separately until confirmed in an updated TMDL export. Only selected measures are included to keep this portfolio documentation focused.
 
 ## Core sales and profitability
 
@@ -184,6 +184,74 @@ DIVIDE(
 
 This measure considers an Internet-channel customer **repeat** if they have at least **two distinct sales orders** in the current filter context. The denominator is the Internet-channel `Total Customers` measure. It is not necessarily a lifetime retention metric.
 
+## Customer purchase frequency
+
+The revised Customers page adds a **Customer Purchase Frequency** chart that separates Internet customers by their number of distinct orders in the current filter context. These two formulas reflect the measures supplied during report development; unlike the preceding measures, they were **not part of the earlier exported TMDL** and should be reconfirmed against the updated Power BI model after saving.
+
+### One-Time Customers
+
+```dax
+One-Time Customers =
+VAR CustomerOrders =
+    ADDCOLUMNS(
+        CALCULATETABLE(
+            VALUES(Sales[CustomerKey]),
+            'Sales Order'[Channel] = "Internet",
+            NOT ISBLANK(Sales[CustomerKey])
+        ),
+        "@Orders",
+            CALCULATE(
+                DISTINCTCOUNT('Sales Order'[Sales Order]),
+                'Sales Order'[Channel] = "Internet"
+            )
+    )
+RETURN
+    COUNTROWS(
+        FILTER(CustomerOrders, [@Orders] = 1)
+    )
+```
+
+Counts Internet customers with **exactly one** distinct order in the active date and filter context.
+
+### Repeat Customers
+
+```dax
+Repeat Customers =
+VAR CustomerOrders =
+    ADDCOLUMNS(
+        CALCULATETABLE(
+            VALUES(Sales[CustomerKey]),
+            'Sales Order'[Channel] = "Internet",
+            NOT ISBLANK(Sales[CustomerKey])
+        ),
+        "@Orders",
+            CALCULATE(
+                DISTINCTCOUNT('Sales Order'[Sales Order]),
+                'Sales Order'[Channel] = "Internet"
+            )
+    )
+RETURN
+    COUNTROWS(
+        FILTER(CustomerOrders, [@Orders] >= 2)
+    )
+```
+
+Counts Internet customers with **two or more** distinct orders in the selected context, matching the numerator logic of `Repeat Customer Rate`.
+
+### Validation
+
+The measures should satisfy the following checks under the same filters:
+
+```dax
+Customer Count Check =
+[One-Time Customers] + [Repeat Customers] - [Total Customers]
+
+Repeat Rate Check =
+DIVIDE([Repeat Customers], [Total Customers]) - [Repeat Customer Rate]
+```
+
+Both checks should normally return zero (allowing for floating-point precision in the rate). These are optional temporary validation measures, not required dashboard metrics. The chart uses the two counts as separate bar values and displays actual customer counts.
+
 ## Percentage-point changes and display measures
 
 ### Profit Margin Change
@@ -236,4 +304,4 @@ This measure returns formatted **text** with directional arrows, useful for card
 - Both `Sales LY` and `Sales PY` are present with equivalent DAX in the provided export.
 - The exported TMDL also defines prior-year, YoY, and display measures for AOV, selling price, quantity, profit, and customer metrics.
 
-**Source:** `_Measures` TMDL exported from the Sales Performance Dashboard semantic model. The relationship settings and underlying Power Query transformations are outside the scope of this measure export.
+**Sources:** The earlier `_Measures` TMDL export and the two subsequently supplied customer purchase-frequency formulas. Reconfirm the latter in an updated export after saving the report. Relationship settings and Power Query transformations are outside the scope of the measures export.
