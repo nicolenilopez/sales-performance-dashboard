@@ -30,21 +30,29 @@ The Power BI report contains three pages: **Sales Dashboard**, **Products**, and
 
 **Key measures:** `Total Sales`, `Profit`, `Profit Margin %`, `Quantity Sold`, `Average Selling Price`, `Quantity Sold YoY %`, and `Average Selling Price YoY %`.
 
-## 3. Customers — Customer Analysis
+## 3. Customers — Internet Customer Analysis
 
 ![Customer Analysis](../screenshots/Sales%20Performance%20Dashboard%20-%20Customers.png)
 
-**Purpose:** Analyze customer purchasing behavior and performance.
+**Purpose:** Analyze Internet customer purchasing behavior, purchase frequency, trends, and geographic distribution.
 
 **Business questions**
-- How many Internet-channel customers made qualifying purchases?
-- How much sales revenue is generated per customer?
-- What percentage of customers placed at least two distinct orders within the selected context?
-- How do customer-related metrics compare with the prior year?
+- How many distinct Internet customers are active in the selected period?
+- How much revenue does an Internet customer generate on average?
+- How many customers placed exactly one order, versus two or more distinct orders?
+- How is the number of active customers changing month by month and versus the previous year?
+- Where are Internet customers located, and which customers generate the most sales?
 
-**Key measures:** `Total Customers`, `Customer Sales`, `Customer Orders`, `Customer AOV`, `Sales per Customer`, `Repeat Customer Rate`, `Customers YoY %`, and `Sales per Customer YoY %`.
+**Page visuals**
+- **KPI cards:** Total Customers, Sales per Customer, and Repeat Customer Rate, each with prior-year comparisons.
+- **Customer Purchase Frequency:** Horizontal bars comparing One-Time Customers and Repeat Customers, showing customer counts.
+- **Active Customers by Month:** Current-period customers versus the prior year.
+- **Customers by Country:** Geographic distribution of customer activity.
+- **Top 10 Customers:** Customer-level sales, order counts, and average order value.
 
-**Important metric definition:** In the supplied DAX, the customer measures above are restricted to the **Internet** channel. The repeat customer rate is based on two or more distinct Internet orders within the current filter context; it is not a lifetime customer retention rate.
+**Key measures:** `Total Customers`, `Customer Sales`, `Customer Orders`, `Customer AOV`, `Sales per Customer`, `Repeat Customer Rate`, `One-Time Customers`, `Repeat Customers`, `Customers PY`, `Customers YoY %`, and `Sales per Customer YoY %`.
+
+**Important metric definition:** Customer metrics use the **Internet** sales channel. One-time customers have exactly one distinct Internet order, while repeat customers have at least two, within the current filter context. This is purchase frequency within the selected period, not lifetime retention.
 
 ## Filtering and interpretation
 
