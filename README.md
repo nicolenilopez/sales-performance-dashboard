@@ -1,38 +1,55 @@
 # Sales Performance Dashboard
 
-An interactive **Power BI sales analytics dashboard** for exploring sales performance, profitability, product results, and customer purchasing behavior through three report pages.
+An interactive **Power BI sales analytics dashboard** for monitoring sales performance, profitability, product results, and customer purchasing behavior.
 
-Built with **Adventure Works sample data** for portfolio demonstration. The report is intended to showcase analytical reporting and Power BI development rather than a real organization's financial performance.
+Built using **Adventure Works sample data** for portfolio demonstration. The project showcases interactive reporting, data modeling, and DAX-based analysis rather than the performance of a real organization.
 
 ## Dashboard preview
 
-Screenshots of the three report pages will be added to the `screenshots/` folder.
+![Sales Performance Overview](screenshots/Sales%20Performance%20Dashboard%20-%20Overview.png)
+
+The **Sales Dashboard** provides a high-level view of sales, profit, orders, average order value, prior-year comparisons, and geographic performance.
 
 ## Business objectives
 
 - Monitor sales, profit, order volume, and average order value over time.
 - Compare key performance indicators against the previous year.
 - Explore sales and profitability across geographic markets.
-- Identify high-performing product categories, subcategories, and products.
+- Identify high-performing products and product groups.
 - Analyze customer activity, repeat purchasing, and sales-channel performance.
 
 ## Report pages
 
 | Page | What it helps analyze |
 | --- | --- |
-| **Sales Dashboard** | Overall sales, profitability, orders, average order value, yearly comparisons, and geographic performance. |
-| **Products** | Product and category results, quantity sold, average selling price, and profitability. |
-| **Customers** | Customer counts, sales per customer, repeat customer rate, customer orders, channels, and geographic patterns. |
+| **Sales Dashboard** | Overall sales performance, profitability, orders, average order value, yearly comparisons, and geographic results. |
+| **Products** | Product and category performance, quantity sold, average selling price, and profitability. |
+| **Customers** | Customer activity, sales per customer, repeat purchases, sales channels, and geographic patterns. |
+
+### Products — Product Performance
+
+![Product Performance](screenshots/Sales%20Performance%20Dashboard%20-%20Products.png)
+
+Analyze product and category contributions to sales, quantities sold, selling prices, and profitability.
+
+### Customers — Customer Analysis
+
+![Customer Analysis](screenshots/Sales%20Performance%20Dashboard%20-%20Customers.png)
+
+Explore customer purchasing behavior, repeat customer rates, sales per customer, and customer performance across segments and markets.
 
 For the purpose and business questions behind each page, see [Report pages and business questions](docs/report-pages.md).
 
 ## Technical implementation
 
-- **Power BI Desktop:** Three-page interactive report with KPI measures and category, geography, time, and customer breakdowns.
-- **DAX:** Sales, profit, year-over-year comparisons, average order value, average selling price, and customer activity metrics.
-- **Data model:** Report visuals reference Date, Product, Customer, Sales Territory, Sales Order, and Channel entities, with calculations organized under `_Measures`.
+- **Power BI Desktop:** Three-page interactive report with KPI measures, time comparisons, and product, customer, and geographic breakdowns.
+- **Data modeling:** Central `Sales` fact table connected to `Date`, `Product`, `Customer`, `Reseller`, `Sales Territory`, `Sales Order`, and `Currency`, with separate currency-rate and sales-reason structures.
+- **DAX:** Measures for sales, profit, margins, order value, quantity sold, customer activity, and prior-year comparisons.
+- **Supporting tables:** `Currency Rate` provides exchange-rate data; `Sales Reason Bridge` connects sales orders with sales reasons. Calculations are organized in `_Measures`.
 
-See [Data model and relationships](docs/data-model.md) for the model entities confirmed from report definitions and the relationships still requiring validation.
+![Sales Data Model](screenshots/data-model.png)
+
+For a closer look at the model, see [Data model and relationships](docs/data-model.md).
 
 ## Key metrics
 
@@ -46,6 +63,6 @@ Total Sales · Profit · Profit Margin % · Total Orders · Average Order Value 
 
 ## Data and scope
 
-The report is presented as an **Adventure Works sample-data** portfolio project. Its report definitions contain references to published Power BI artifacts; review the PBIX's Power Query connections, embedded data, and privacy implications before uploading it publicly.
+This dashboard uses the **Adventure Works sample dataset** for portfolio purposes. Results are illustrative and should not be interpreted as the financial performance of a real organization.
 
-The downloadable PBIX and actual report screenshots can be added after the source and privacy checks are complete.
+The Power BI report file is available in the [`powerbi/` folder](powerbi/). It can be opened in Power BI Desktop. Data-source connections and embedded model contents should be reviewed before reusing or distributing the file.
