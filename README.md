@@ -16,7 +16,7 @@ The **Sales Dashboard** provides a high-level view of sales, profit, orders, ave
 - Compare key performance indicators against the previous year.
 - Explore sales and profitability across geographic markets.
 - Identify high-performing products and product groups.
-- Analyze customer activity, repeat purchasing, and sales-channel performance.
+- Analyze Internet customer activity, one-time versus repeat purchasing, and geographic distribution.
 
 ## Report pages
 
@@ -24,7 +24,7 @@ The **Sales Dashboard** provides a high-level view of sales, profit, orders, ave
 | --- | --- |
 | **Sales Dashboard** | Overall sales performance, profitability, orders, average order value, yearly comparisons, and geographic results. |
 | **Products** | Product and category performance, quantity sold, average selling price, and profitability. |
-| **Customers** | Customer activity, sales per customer, repeat purchases, sales channels, and geographic patterns. |
+| **Customers** | Internet customer activity, purchase frequency, monthly trends, geographic distribution, and top customers. |
 
 ### Products — Product Performance
 
@@ -36,7 +36,7 @@ Analyze product and category contributions to sales, quantities sold, selling pr
 
 ![Customer Analysis](screenshots/Sales%20Performance%20Dashboard%20-%20Customers.png)
 
-Explore customer purchasing behavior, repeat customer rates, sales per customer, and customer performance across segments and markets.
+Explore **Internet customer** behavior through total customers, sales per customer, repeat customer rate, one-time versus repeat customer counts, monthly active customer trends, a country map, and a top 10 customer table. Customer KPIs are scoped to Internet sales.
 
 For the purpose and business questions behind each page, see [Report pages and business questions](docs/report-pages.md).
 
@@ -65,4 +65,4 @@ Total Sales · Profit · Profit Margin % · Total Orders · Average Order Value 
 
 This dashboard uses the **Adventure Works sample dataset** for portfolio purposes. Results are illustrative and should not be interpreted as the financial performance of a real organization.
 
-The Power BI report file is available in the [`powerbi/` folder](powerbi/). It can be opened in Power BI Desktop. Data-source connections and embedded model contents should be reviewed before reusing or distributing the file.
+The Power BI report file is available in the [`powerbi/` folder](powerbi/) and can be opened in Power BI Desktop.
