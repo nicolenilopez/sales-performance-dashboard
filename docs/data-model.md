@@ -28,13 +28,25 @@ The `Sales` table is the central fact table used to calculate revenue, profitabi
 
 ## Relationships
 
-- **Central sales model:** Product, Customer, Reseller, Sales Territory, Sales Order, and Currency connect to `Sales`. The diagram shows one-to-many markers for the primary dimension-to-fact relationships.
-- **Multiple date roles:** `Date` has multiple relationships with `Sales`, including inactive paths. This allows the model to represent different sales-related dates, subject to the DAX and relationship configuration.
-- **Currency rates:** `Currency Rate` connects into the Date and Currency area of the model and has a different grain from sales transactions.
-- **Sales reasons:** `Sales Reason Bridge` associates `Sales Order` with `Sales Reason`, rather than treating each reason as a single attribute on a sales line.
-- **Measure organization:** `_Measures` appears separately, without physical relationships.
+The central `Sales` fact table connects to its dimensions, primarily through one-to-many relationships. Additional relationships support date analysis, currency rates, and sales reasons.
 
-The screenshot establishes the table layout and visible relationship paths. It does **not** reveal every linked key column, relationship filter direction, or other configuration; those details should be verified in Power BI Desktop before making more specific claims.
+| Related table | Connected table |
+| --- | --- |
+| `Sales` | `Date` |
+| `Sales` | `Product` |
+| `Sales` | `Customer` |
+| `Sales` | `Reseller` |
+| `Sales` | `Sales Territory` |
+| `Sales` | `Sales Order` |
+| `Sales` | `Currency` |
+| `Currency Rate` | `Date` |
+| `Currency Rate` | `Currency` |
+| `Sales Reason Bridge` | `Sales Order` |
+| `Sales Reason Bridge` | `Sales Reason` |
+
+The model includes active and inactive relationships between `Sales` and `Date`, representing different sales-related date contexts. The sales-reason bridge supports associations between sales orders and their corresponding sales reasons.
+
+The table summarizes relationships at the **table level**. Exact relationship columns, cardinalities, and cross-filter directions should be verified in Power BI Desktop before documenting them individually.
 
 ## Supporting tables
 
