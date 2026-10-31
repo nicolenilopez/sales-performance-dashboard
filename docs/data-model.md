@@ -2,11 +2,11 @@
 
 ## Model overview
 
-The Sales Performance Dashboard uses a central **`Sales` fact table** surrounded by dimension tables, with supporting currency-rate and sales-reason structures.
+The Sales Performance Dashboard uses a **star-schema-oriented data model**, with a central `Sales` fact table connected to dimensions for dates, products, customers, resellers, sales territories, sales orders, and currencies. Additional tables support currency-rate analysis and sales-reason associations.
 
 ![Sales Performance Dashboard data model](../screenshots/data-model.png)
 
-The diagram is from Power BI Desktop's Model view. Solid lines indicate active relationships and dashed lines indicate inactive relationships.
+Solid relationship lines indicate active relationships, while dashed lines represent inactive relationships used for alternative date associations.
 
 ## Tables and roles
 
