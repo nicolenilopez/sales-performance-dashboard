@@ -42,12 +42,10 @@ For the purpose and business questions behind each page, see [Report pages and b
 
 ## Technical implementation
 
-- **Power BI Desktop:** Three-page interactive report with KPI measures, time comparisons, and product, customer, and geographic breakdowns.
-- **Data modeling:** Central `Sales` fact table connected to `Date`, `Product`, `Customer`, `Reseller`, `Sales Territory`, `Sales Order`, and `Currency`, with separate currency-rate and sales-reason structures.
-- **DAX:** Measures for sales, profit, margins, order value, quantity sold, customer activity, and prior-year comparisons.
-- **Supporting tables:** `Currency Rate` provides exchange-rate data; `Sales Reason Bridge` connects sales orders with sales reasons. Calculations are organized in `_Measures`.
-
-![Sales Data Model](screenshots/data-model.png)
+- **Power BI Desktop:** Three-page interactive report featuring KPI cards, time-series comparisons, product analysis, customer insights, and geographic visualizations.
+- **Data modeling:** Central `Sales` fact table connected to shared dimensions, with supporting tables for currency conversion and sales-reason analysis.
+- **DAX:** Sales and profitability measures, year-over-year comparisons, order metrics, and Internet customer purchasing and repeat-order calculations.
+- **Model organization:** Dedicated `_Measures` table for calculations, with separate `Currency Rate` and `Sales Reason Bridge` structures.
 
 For a closer look at the model, see [Data model and relationships](docs/data-model.md).
 
