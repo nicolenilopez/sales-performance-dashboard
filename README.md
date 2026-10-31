@@ -51,7 +51,7 @@ For a closer look at the model, see [Data model and relationships](docs/data-mod
 
 ## Key metrics
 
-Total Sales · Profit · Profit Margin % · Total Orders · Average Order Value · Quantity Sold · Average Selling Price · Total Customers · Sales per Customer · Repeat Customer Rate · Year-over-Year %
+Total Sales · Profit · Profit Margin % · Total Orders · Average Order Value · Quantity Sold · Average Selling Price · Total Customers · Sales per Customer · Repeat Customer Rate · One-Time Customers · Repeat Customers · Sales YoY %
 
 ## Technical documentation
 
