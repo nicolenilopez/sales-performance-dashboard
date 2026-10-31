@@ -12,11 +12,11 @@ The **Overview** brings together Total Sales, Profit, Profit Margin, Total Order
 
 ## Business objectives
 
-- Monitor sales, profit, order volume, and average order value over time.
-- Compare key performance indicators against the previous year.
-- Explore sales and profitability across geographic markets.
-- Identify high-performing products and product groups.
-- Analyze Internet customer activity, one-time versus repeat purchasing, and geographic distribution.
+- Monitor Total Sales, Profit, Profit Margin, Total Orders, and Average Order Value.
+- Track monthly sales performance and compare key metrics against the previous year.
+- Analyze sales and profitability across product categories and geographic markets.
+- Identify top-performing products and evaluate their contribution to revenue.
+- Understand Internet customer purchasing behavior, repeat purchases, and geographic distribution.
 
 ## Report pages
 
