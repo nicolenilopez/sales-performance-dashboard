@@ -61,6 +61,4 @@ Total Sales · Profit · Profit Margin % · Total Orders · Average Order Value 
 
 ## Data and scope
 
-This dashboard uses the **Adventure Works sample dataset** for portfolio purposes. Results are illustrative and should not be interpreted as the financial performance of a real organization.
-
-The Power BI report file is available in the [`powerbi/` folder](powerbi/) and can be opened in Power BI Desktop.
+The dashboard uses the **Adventure Works sample dataset** for portfolio demonstration. Sales figures and business results are illustrative and do not represent the performance of a real organization.
