@@ -1,62 +1,307 @@
 # Selected DAX measures and calculation logic
 
-## Scope of this documentation
+## Source and scope
 
-This document lists the measure names **confirmed in the report visual definitions** and explains the business role of each one. The underlying DAX expressions are not included here because the embedded model's measure definitions have not yet been extracted and validated. The formulas should not be presented as exact source code until verified in Power BI Desktop.
+Most formulas below are transcribed from the project's exported **`_Measures` TMDL**. Two additional purchase-frequency measures were supplied during subsequent report development and are identified separately until confirmed in an updated TMDL export. Only selected measures are included to keep this portfolio documentation focused.
 
-## Sales and profitability
+## Core sales and profitability
 
-| Measure | Purpose |
-| --- | --- |
-| `Total Sales` | Primary sales amount used in KPI and breakdown visuals |
-| `Profit` | Profitability amount |
-| `Profit Margin %` | Profit expressed relative to sales |
-| `Sales LY` | Previous-year sales comparison |
-| `Sales YoY %` | Relative change in sales versus the previous year |
-| `Profit YoY %` | Relative change in profit versus the previous year |
+### Total Sales
 
-## Orders and products
+```dax
+Total Sales = SUM(Sales[Sales Amount])
+```
 
-| Measure | Purpose |
-| --- | --- |
-| `Total Orders` | Order volume |
-| `Average Order Value` | Sales value per order |
-| `Orders YoY %` | Year-over-year order change |
-| `AOV YoY %` | Year-over-year change in average order value |
-| `Quantity Sold` | Sales units |
-| `Quantity Sold YoY %` | Year-over-year change in units sold |
-| `Average Selling Price` | Average realized price per unit |
-| `Average Selling Price YoY %` | Year-over-year change in average selling price |
+Sums sales amounts in the current report filter context.
 
-## Customers
+### Total Cost
 
-| Measure | Purpose |
-| --- | --- |
-| `Total Customers` | Distinct customer activity according to the model definition |
-| `Customer Sales` | Sales in customer-level context |
-| `Customer Orders` | Orders in customer-level context |
-| `Customer AOV` | Average order value in customer-level context |
-| `Sales per Customer` | Sales normalized by customer count |
-| `Repeat Customer Rate` | Customer repeat-purchase indicator |
-| `Customers PY` | Prior-year customer comparison |
-| `Customers YoY %` | Year-over-year customer change |
-| `Sales per Customer YoY %` | Year-over-year change in sales per customer |
+```dax
+Total Cost = SUM(Sales[Total Product Cost])
+```
 
-## Display-focused measures
+### Profit and Profit Margin %
 
-The report also references measures such as `Sales YoY Display`, `Profit YoY Display`, `Orders YoY Display`, `Profit Margin Change Display`, `AOV YoY Display`, `Customers YoY Display`, and `Repeat Customer Rate Display`.
+```dax
+Profit = [Total Sales] - [Total Cost]
 
-These appear intended for presentation, but their exact formatting and calculation logic should be verified rather than inferred from their names.
+Profit Margin % =
+DIVIDE(
+    [Profit],
+    [Total Sales]
+)
+```
 
-## How to add exact DAX definitions
+Profit represents sales less product cost, rather than a complete income-statement net profit. `DIVIDE` returns blank when the denominator is zero or blank unless an alternate result is specified.
 
-In Power BI Desktop, select a measure in the **Data** pane and copy its expression from the formula bar. For a portfolio-ready technical write-up, prioritize:
+## Orders and product performance
 
-1. `Total Sales` and `Profit`
-2. `Profit Margin %`
-3. `Sales LY` and `Sales YoY %`
-4. `Average Order Value`
-5. `Repeat Customer Rate`
-6. `Sales per Customer`
+### Total Orders and Average Order Value
 
-For each expression, describe its calculation context, any time-intelligence assumptions, and behavior when the denominator is blank or zero.
+```dax
+Total Orders = DISTINCTCOUNT('Sales Order'[Sales Order])
+
+Average Order Value =
+DIVIDE(
+    [Total Sales],
+    [Total Orders]
+)
+```
+
+Order counts use distinct `Sales Order` identifiers.
+
+### Quantity Sold and Average Selling Price
+
+```dax
+Quantity Sold = SUM(Sales[Order Quantity])
+
+Average Selling Price =
+DIVIDE(
+    [Total Sales],
+    [Quantity Sold]
+)
+```
+
+`Average Selling Price` is a sales-weighted amount per unit, not an unweighted average of product list prices.
+
+## Prior-year and year-over-year comparisons
+
+### Sales LY and Sales YoY %
+
+```dax
+Sales LY =
+CALCULATE(
+    [Total Sales],
+    SAMEPERIODLASTYEAR('Date'[Date])
+)
+
+Sales YoY % =
+DIVIDE(
+    [Total Sales] - [Sales LY],
+    [Sales LY]
+)
+```
+
+`SAMEPERIODLASTYEAR` shifts the current date context by one year. The export also includes a `Sales PY` measure with the same expression as `Sales LY`.
+
+### Orders PY and Orders YoY %
+
+```dax
+Orders PY =
+CALCULATE(
+    [Total Orders],
+    SAMEPERIODLASTYEAR('Date'[Date])
+)
+
+Orders YoY % =
+DIVIDE(
+    [Total Orders] - [Orders PY],
+    [Orders PY]
+)
+```
+
+Other prior-year and YoY measures follow this pattern for profit, average order value, quantity sold, average selling price, customer counts, and sales per customer.
+
+## Customer analysis: Internet channel
+
+The exported customer measures intentionally apply the **Internet** channel filter. This is important when interpreting customer KPIs alongside overall sales figures.
+
+### Total Customers
+
+```dax
+Total Customers =
+CALCULATE(
+    DISTINCTCOUNT(Sales[CustomerKey]),
+    'Sales Order'[Channel] = "Internet",
+    NOT ISBLANK(Sales[CustomerKey])
+)
+```
+
+Counts distinct, nonblank customer keys within Internet-channel sales.
+
+### Customer Sales and Customer Orders
+
+```dax
+Customer Sales =
+CALCULATE(
+    [Total Sales],
+    'Sales Order'[Channel] = "Internet"
+)
+
+Customer Orders =
+CALCULATE(
+    DISTINCTCOUNT('Sales Order'[Sales Order]),
+    'Sales Order'[Channel] = "Internet"
+)
+```
+
+### Sales per Customer and Customer AOV
+
+```dax
+Sales per Customer =
+DIVIDE(
+    [Customer Sales],
+    [Total Customers]
+)
+
+Customer AOV =
+DIVIDE(
+    [Customer Sales],
+    [Customer Orders]
+)
+```
+
+### Repeat Customer Rate
+
+```dax
+Repeat Customer Rate =
+VAR CustomerOrders =
+    ADDCOLUMNS(
+        CALCULATETABLE(
+            VALUES(Sales[CustomerKey]),
+            'Sales Order'[Channel] = "Internet",
+            NOT ISBLANK(Sales[CustomerKey])
+        ),
+        "@Orders",
+            CALCULATE(
+                DISTINCTCOUNT('Sales Order'[Sales Order]),
+                'Sales Order'[Channel] = "Internet"
+            )
+    )
+VAR RepeatCustomers =
+    COUNTROWS(
+        FILTER(
+            CustomerOrders,
+            [@Orders] >= 2
+        )
+    )
+RETURN
+DIVIDE(
+    RepeatCustomers,
+    [Total Customers]
+)
+```
+
+This measure considers an Internet-channel customer **repeat** if they have at least **two distinct sales orders** in the current filter context. The denominator is the Internet-channel `Total Customers` measure. It is not necessarily a lifetime retention metric.
+
+## Customer purchase frequency
+
+The revised Customers page adds a **Customer Purchase Frequency** chart that separates Internet customers by their number of distinct orders in the current filter context. These two formulas reflect the measures supplied during report development; unlike the preceding measures, they were **not part of the earlier exported TMDL** and should be reconfirmed against the updated Power BI model after saving.
+
+### One-Time Customers
+
+```dax
+One-Time Customers =
+VAR CustomerOrders =
+    ADDCOLUMNS(
+        CALCULATETABLE(
+            VALUES(Sales[CustomerKey]),
+            'Sales Order'[Channel] = "Internet",
+            NOT ISBLANK(Sales[CustomerKey])
+        ),
+        "@Orders",
+            CALCULATE(
+                DISTINCTCOUNT('Sales Order'[Sales Order]),
+                'Sales Order'[Channel] = "Internet"
+            )
+    )
+RETURN
+    COUNTROWS(
+        FILTER(CustomerOrders, [@Orders] = 1)
+    )
+```
+
+Counts Internet customers with **exactly one** distinct order in the active date and filter context.
+
+### Repeat Customers
+
+```dax
+Repeat Customers =
+VAR CustomerOrders =
+    ADDCOLUMNS(
+        CALCULATETABLE(
+            VALUES(Sales[CustomerKey]),
+            'Sales Order'[Channel] = "Internet",
+            NOT ISBLANK(Sales[CustomerKey])
+        ),
+        "@Orders",
+            CALCULATE(
+                DISTINCTCOUNT('Sales Order'[Sales Order]),
+                'Sales Order'[Channel] = "Internet"
+            )
+    )
+RETURN
+    COUNTROWS(
+        FILTER(CustomerOrders, [@Orders] >= 2)
+    )
+```
+
+Counts Internet customers with **two or more** distinct orders in the selected context, matching the numerator logic of `Repeat Customer Rate`.
+
+### Validation
+
+The measures should satisfy the following checks under the same filters:
+
+```dax
+Customer Count Check =
+[One-Time Customers] + [Repeat Customers] - [Total Customers]
+
+Repeat Rate Check =
+DIVIDE([Repeat Customers], [Total Customers]) - [Repeat Customer Rate]
+```
+
+Both checks should normally return zero (allowing for floating-point precision in the rate). These are optional temporary validation measures, not required dashboard metrics. The chart uses the two counts as separate bar values and displays actual customer counts.
+
+## Percentage-point changes and display measures
+
+### Profit Margin Change
+
+```dax
+Profit Margin Change =
+[Profit Margin %] - [Profit Margin PY]
+```
+
+### Profit Margin Change Display
+
+```dax
+Profit Margin Change Display =
+VAR Change = [Profit Margin Change]
+RETURN
+SWITCH(
+    TRUE(),
+    ISBLANK(Change), BLANK(),
+    Change > 0, "▲ " & FORMAT(Change * 100, "0.0") & " pp",
+    Change < 0, "▼ " & FORMAT(ABS(Change) * 100, "0.0") & " pp",
+    "– 0.0 pp"
+)
+```
+
+Unlike a relative YoY percentage, this margin difference is displayed in **percentage points (pp)**. The report uses comparable presentation logic for `Repeat Customer Rate Display`.
+
+### Sales YoY Display
+
+```dax
+Sales YoY Display =
+VAR Change = [Sales YoY %]
+RETURN
+SWITCH(
+    TRUE(),
+    ISBLANK(Change), BLANK(),
+    Change > 0, "▲ " & FORMAT(Change, "0.0%"),
+    Change < 0, "▼ " & FORMAT(ABS(Change), "0.0%"),
+    "– 0.0%"
+)
+```
+
+This measure returns formatted **text** with directional arrows, useful for cards but not interchangeable with the underlying numeric `Sales YoY %` measure.
+
+## Implementation notes
+
+- The TMDL uses **US-dollar format strings** for monetary measures.
+- The year-over-year calculations use `'Date'[Date]`, so the relationship and calendar context matter.
+- `Profit` is based only on `Total Sales` and `Total Cost`.
+- `Total Customers`, `Customer Sales`, `Customer Orders`, and `Repeat Customer Rate` apply the Internet-channel condition.
+- Both `Sales LY` and `Sales PY` are present with equivalent DAX in the provided export.
+- The exported TMDL also defines prior-year, YoY, and display measures for AOV, selling price, quantity, profit, and customer metrics.
+
+**Sources:** The earlier `_Measures` TMDL export and the two subsequently supplied customer purchase-frequency formulas. Reconfirm the latter in an updated export after saving the report. Relationship settings and Power Query transformations are outside the scope of the measures export.
