@@ -14,17 +14,22 @@ Solid relationship lines indicate active relationships, while dashed lines repre
 
 The `Sales` table is the central fact table used to calculate revenue, profitability, sales volume, and order-related metrics across the report.
 
+## Dimensions
+
+| Table | Role |
+| --- | --- |
+| `Date` | Provides calendar and fiscal attributes for time-based analysis and prior-year comparisons. |
+| `Product` | Provides product information and categories for product performance analysis. |
+| `Customer` | Provides customer attributes for Internet customer analysis. |
+| `Reseller` | Provides reseller information for reseller sales analysis. |
+| `Sales Territory` | Enables geographic analysis by sales territory and country. |
+| `Sales Order` | Provides sales order identifiers and sales-channel classification. |
+| `Currency` | Provides currency identifiers and related attributes. |
+
 ## Tables and roles
 
 | Table | Role |
 | --- | --- |
-| `Date` | Calendar and fiscal attributes supporting time intelligence and year-over-year analysis |
-| `Product` | Product attributes supporting product-level and category-level analysis |
-| `Customer` | Customer information supporting Internet customer purchasing analysis |
-| `Reseller` | Reseller information supporting business-to-business sales analysis |
-| `Sales Territory` | Geographic attributes supporting sales analysis by territory and country |
-| `Sales Order` | Order identifiers and sales-channel classification |
-| `Currency` | Currency identifiers and related attributes |
 | `Currency Rate` | Exchange-rate information by date and currency |
 | `Sales Reason Bridge` | Bridge table associating sales orders with sales reasons |
 | `Sales Reason` | Sales-reason descriptions and classifications |
