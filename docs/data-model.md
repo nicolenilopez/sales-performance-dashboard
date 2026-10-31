@@ -6,11 +6,18 @@ The Sales Performance Dashboard uses a **star-schema-oriented data model**, with
 
 Solid relationship lines indicate active relationships, while dashed lines represent inactive relationships used for alternative date associations.
 
+## Fact table
+
+| Table | Description |
+| --- | --- |
+| `Sales` | Stores sales transactions, including sales amounts, product costs, order quantities, and transaction keys. |
+
+The `Sales` table is the central fact table used to calculate revenue, profitability, sales volume, and order-related metrics across the report.
+
 ## Tables and roles
 
 | Table | Role |
 | --- | --- |
-| `Sales` | Central fact table containing sales amounts, product costs, quantities, and transaction keys |
 | `Date` | Calendar and fiscal attributes supporting time intelligence and year-over-year analysis |
 | `Product` | Product attributes supporting product-level and category-level analysis |
 | `Customer` | Customer information supporting Internet customer purchasing analysis |
