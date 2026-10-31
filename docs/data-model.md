@@ -58,21 +58,13 @@ The table summarizes relationships at the **table level**. Exact relationship co
 
 The model also includes `_Measures`, a dedicated table used to organize DAX measures separately from the underlying sales and supporting tables.
 
-## Calculation logic confirmed by TMDL
+## Calculation approach
 
-The exported `_Measures` TMDL supplies additional evidence about how the model is used:
+Base measures aggregate sales amounts, product costs, order quantities, and distinct sales orders. Additional DAX measures calculate profitability, profit margins, average order value, and prior-year comparisons.
 
-- `Total Sales` sums `Sales[Sales Amount]`.
-- `Total Cost` sums `Sales[Total Product Cost]`; `Profit` is sales minus this product cost.
-- `Quantity Sold` sums `Sales[Order Quantity]`.
-- `Total Orders` counts distinct `'Sales Order'[Sales Order]` identifiers.
-- Prior-year measures use `SAMEPERIODLASTYEAR('Date'[Date])`.
-- Customer measures explicitly apply `'Sales Order'[Channel] = "Internet"`.
-- `Repeat Customer Rate` counts customers with two or more distinct Internet orders within the active filter context, then divides by `Total Customers`.
+Customer measures are specifically filtered to Internet sales and support customer activity, purchasing frequency, and repeat customer analysis. These measures may therefore cover a different sales population than the overall sales KPIs.
 
-These details are important because **overall sales measures and Internet-channel customer measures do not necessarily represent the same population**.
-
-For selected exact formulas, see [DAX measures and calculation logic](dax-measures.md).
+See [DAX Measures & Calculation Logic](dax-measures.md) for selected measure definitions.
 
 ## Modeling considerations
 
