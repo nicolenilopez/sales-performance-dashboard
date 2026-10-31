@@ -1,8 +1,8 @@
 # Sales Performance Dashboard
 
-An interactive **Power BI sales analytics dashboard** for monitoring sales performance, profitability, product results, and customer purchasing behavior.
+An interactive **Power BI sales performance dashboard** for analyzing revenue, profitability, product performance, and customer purchasing behavior across different markets.
 
-Built using **Adventure Works sample data** for portfolio demonstration. The project showcases interactive reporting, data modeling, and DAX-based analysis rather than the performance of a real organization.
+Built using the **Adventure Works sample dataset** for portfolio demonstration. All results are illustrative and intended to showcase interactive reporting, data modeling, and DAX-based business analysis.
 
 ## Dashboard preview
 
