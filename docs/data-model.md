@@ -26,16 +26,7 @@ The `Sales` table is the central fact table used to calculate revenue, profitabi
 | `Sales Order` | Provides sales order identifiers and sales-channel classification. |
 | `Currency` | Provides currency identifiers and related attributes. |
 
-## Tables and roles
-
-| Table | Role |
-| --- | --- |
-| `Currency Rate` | Exchange-rate information by date and currency |
-| `Sales Reason Bridge` | Bridge table associating sales orders with sales reasons |
-| `Sales Reason` | Sales-reason descriptions and classifications |
-| `_Measures` | Dedicated table containing DAX measures used throughout the report |
-
-## Visible relationship structure
+## Relationships
 
 - **Central sales model:** Product, Customer, Reseller, Sales Territory, Sales Order, and Currency connect to `Sales`. The diagram shows one-to-many markers for the primary dimension-to-fact relationships.
 - **Multiple date roles:** `Date` has multiple relationships with `Sales`, including inactive paths. This allows the model to represent different sales-related dates, subject to the DAX and relationship configuration.
@@ -44,6 +35,16 @@ The `Sales` table is the central fact table used to calculate revenue, profitabi
 - **Measure organization:** `_Measures` appears separately, without physical relationships.
 
 The screenshot establishes the table layout and visible relationship paths. It does **not** reveal every linked key column, relationship filter direction, or other configuration; those details should be verified in Power BI Desktop before making more specific claims.
+
+## Supporting tables
+
+| Table | Purpose |
+| --- | --- |
+| `Currency Rate` | Stores exchange-rate information by date and currency. |
+| `Sales Reason Bridge` | Associates sales orders with their corresponding sales reasons. |
+| `Sales Reason` | Provides descriptions and classifications of sales reasons. |
+
+The model also includes `_Measures`, a dedicated table used to organize DAX measures separately from the underlying sales and supporting tables.
 
 ## Calculation logic confirmed by TMDL
 
