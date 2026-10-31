@@ -65,9 +65,3 @@ Base measures aggregate sales amounts, product costs, order quantities, and dist
 Customer measures are specifically filtered to Internet sales and support customer activity, purchasing frequency, and repeat customer analysis. These measures may therefore cover a different sales population than the overall sales KPIs.
 
 See [DAX Measures & Calculation Logic](dax-measures.md) for selected measure definitions.
-
-## Modeling considerations
-
-The sales transaction, order, customer, and exchange-rate tables operate at different levels of detail. Relationships, filter direction, and date context therefore matter when interpreting totals. The bridge table also needs attention to prevent order-level sales reasons from being mistaken for independent sales-line amounts.
-
-**Scope:** The visual model and provided TMDL confirm the structure and listed calculations, but do not independently verify Power Query source connections, credentials, or all imported data.
