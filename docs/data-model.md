@@ -12,18 +12,18 @@ Solid relationship lines indicate active relationships, while dashed lines repre
 
 | Table | Role |
 | --- | --- |
-| `Sales` | Central sales fact table, including sales amounts, product costs, order quantities, and transaction keys |
-| `Date` | Calendar and fiscal attributes used for time analysis |
-| `Product` | Product attributes and groupings |
-| `Customer` | Customer identifiers and descriptive attributes |
-| `Reseller` | Reseller-related attributes |
-| `Sales Territory` | Geographic groupings |
-| `Sales Order` | Order identifiers and channel classification |
-| `Currency` | Currency information |
-| `Currency Rate` | Exchange-rate values by date and currency |
-| `Sales Reason Bridge` | Associative table linking sales orders to sales reasons |
-| `Sales Reason` | Sales-reason descriptions |
-| `_Measures` | Dedicated DAX measures table |
+| `Sales` | Central fact table containing sales amounts, product costs, quantities, and transaction keys |
+| `Date` | Calendar and fiscal attributes supporting time intelligence and year-over-year analysis |
+| `Product` | Product attributes supporting product-level and category-level analysis |
+| `Customer` | Customer information supporting Internet customer purchasing analysis |
+| `Reseller` | Reseller information supporting business-to-business sales analysis |
+| `Sales Territory` | Geographic attributes supporting sales analysis by territory and country |
+| `Sales Order` | Order identifiers and sales-channel classification |
+| `Currency` | Currency identifiers and related attributes |
+| `Currency Rate` | Exchange-rate information by date and currency |
+| `Sales Reason Bridge` | Bridge table associating sales orders with sales reasons |
+| `Sales Reason` | Sales-reason descriptions and classifications |
+| `_Measures` | Dedicated table containing DAX measures used throughout the report |
 
 ## Visible relationship structure
 
