@@ -22,21 +22,21 @@ The **Overview** brings together Total Sales, Profit, Profit Margin, Total Order
 
 | Page | What it helps analyze |
 | --- | --- |
-| **Sales Dashboard** | Overall sales performance, profitability, orders, average order value, yearly comparisons, and geographic results. |
-| **Products** | Product and category performance, quantity sold, average selling price, and profitability. |
-| **Customers** | Internet customer activity, purchase frequency, monthly trends, geographic distribution, and top customers. |
+| **Sales Dashboard** | Sales performance, profitability, order trends, year-over-year comparisons, and geographic analysis. |
+| **Products** | Product and category sales, quantity sold, average selling price, and profit margins. |
+| **Customers** | Internet customer behavior, purchase frequency, monthly activity, and geographic distribution. |
 
 ### Products — Product Performance
 
 ![Product Performance](screenshots/Sales%20Performance%20Dashboard%20-%20Products.png)
 
-Analyze product and category contributions to sales, quantities sold, selling prices, and profitability.
+Analyze product and category sales, quantities sold, average selling prices, and profit margins to identify top-performing products.
 
 ### Customers — Customer Analysis
 
 ![Customer Analysis](screenshots/Sales%20Performance%20Dashboard%20-%20Customers.png)
 
-Explore **Internet customer** behavior through total customers, sales per customer, repeat customer rate, one-time versus repeat customer counts, monthly active customer trends, a country map, and a top 10 customer table. Customer KPIs are scoped to Internet sales.
+Analyze Internet customer activity through purchasing frequency, monthly trends, geographic distribution, and top customers. One-time and repeat customer counts highlight purchasing behavior within the selected period.
 
 For the purpose and business questions behind each page, see [Report pages and business questions](docs/report-pages.md).
 
