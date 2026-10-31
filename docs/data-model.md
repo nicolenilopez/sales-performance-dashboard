@@ -1,4 +1,4 @@
-# Data model and relationships
+# Data Model
 
 ## Model overview
 
