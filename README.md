@@ -8,7 +8,7 @@ Built using the **Adventure Works sample dataset** for portfolio demonstration. 
 
 ![Sales Performance Overview](screenshots/Sales%20Performance%20Dashboard%20-%20Overview.png)
 
-The **Sales Dashboard** provides a high-level view of sales, profit, orders, average order value, prior-year comparisons, and geographic performance.
+The **Overview** brings together Total Sales, Profit, Profit Margin, Total Orders, and Average Order Value KPIs, with year-over-year comparisons, monthly sales trends, product category performance, and geographic analysis.
 
 ## Business objectives
 
