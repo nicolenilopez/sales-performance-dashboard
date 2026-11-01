@@ -2,51 +2,87 @@
 
 This document highlights selected DAX measures used across the Sales Performance Dashboard's three report pages: **Sales Dashboard**, **Products**, and **Customers**. The examples cover sales and profitability KPIs, time intelligence, product performance, Internet customer purchasing behavior, and dynamic KPI formatting.
 
-## Core sales and profitability
+## Sales Dashboard — Sales performance
+
+The Sales Dashboard page uses revenue, profitability, order metrics, and time intelligence to provide an overview of sales performance.
 
 ### Total Sales
+
+Calculates total revenue within the current filter context.
 
 ```dax
 Total Sales = SUM(Sales[Sales Amount])
 ```
 
-Sums sales amounts in the current report filter context.
-
 ### Total Cost
+
+Aggregates product costs used in the profit calculation.
 
 ```dax
 Total Cost = SUM(Sales[Total Product Cost])
 ```
 
-### Profit and Profit Margin %
+### Profit
+
+Calculates sales revenue minus product costs. This represents profit before other operating expenses.
 
 ```dax
 Profit = [Total Sales] - [Total Cost]
-
-Profit Margin % =
-DIVIDE(
-    [Profit],
-    [Total Sales]
-)
 ```
 
-Profit represents sales less product cost, rather than a complete income-statement net profit. `DIVIDE` returns blank when the denominator is zero or blank unless an alternate result is specified.
+### Profit Margin %
 
-## Orders and product performance
+Expresses profit as a percentage of total sales. `DIVIDE` returns blank for zero or blank denominators.
 
-### Total Orders and Average Order Value
+```dax
+Profit Margin % =
+DIVIDE([Profit], [Total Sales])
+```
+
+### Total Orders
+
+Counts distinct sales orders within the current filter context.
 
 ```dax
 Total Orders = DISTINCTCOUNT('Sales Order'[Sales Order])
+```
 
+### Average Order Value
+
+Calculates average revenue per order.
+
+```dax
 Average Order Value =
-DIVIDE(
+DIVIDE([Total Sales], [Total Orders])
+```
+
+### Sales LY
+
+Evaluates total sales for the corresponding period in the previous year.
+
+```dax
+Sales LY =
+CALCULATE(
     [Total Sales],
-    [Total Orders]
+    SAMEPERIODLASTYEAR('Date'[Date])
 )
 ```
 
-Order counts use distinct `Sales Order` identifiers.
+The exported model also includes `Sales PY` with the same DAX expression as `Sales LY`.
+
+### Sales YoY %
+
+Calculates the percentage change in sales compared with the previous year.
+
+```dax
+Sales YoY % =
+DIVIDE(
+    [Total Sales] - [Sales LY],
+    [Sales LY]
+)
+```
+
+## Orders and product performance
 
 ### Quantity Sold and Average Selling Price
 
@@ -63,24 +99,6 @@ DIVIDE(
 `Average Selling Price` is a sales-weighted amount per unit, not an unweighted average of product list prices.
 
 ## Prior-year and year-over-year comparisons
-
-### Sales LY and Sales YoY %
-
-```dax
-Sales LY =
-CALCULATE(
-    [Total Sales],
-    SAMEPERIODLASTYEAR('Date'[Date])
-)
-
-Sales YoY % =
-DIVIDE(
-    [Total Sales] - [Sales LY],
-    [Sales LY]
-)
-```
-
-`SAMEPERIODLASTYEAR` shifts the current date context by one year. The export also includes a `Sales PY` measure with the same expression as `Sales LY`.
 
 ### Orders PY and Orders YoY %
 
