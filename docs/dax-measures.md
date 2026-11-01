@@ -1,72 +1,64 @@
-# Selected DAX measures and calculation logic
+# DAX Measures & Calculation Logic
 
-## Source and scope
+This document highlights selected DAX measures used across the Sales Performance Dashboard's three report pages: **Sales Dashboard**, **Products**, and **Customers**. The examples cover sales and profitability KPIs, time intelligence, product performance, Internet customer purchasing behavior, and dynamic KPI formatting.
 
-Most formulas below are transcribed from the project's exported **`_Measures` TMDL**. Two additional purchase-frequency measures were supplied during subsequent report development and are identified separately until confirmed in an updated TMDL export. Only selected measures are included to keep this portfolio documentation focused.
+## Sales Dashboard — Sales performance
 
-## Core sales and profitability
+The Sales Dashboard page uses revenue, profitability, order metrics, and time intelligence to provide an overview of sales performance.
 
 ### Total Sales
+
+Calculates total revenue within the current filter context.
 
 ```dax
 Total Sales = SUM(Sales[Sales Amount])
 ```
 
-Sums sales amounts in the current report filter context.
-
 ### Total Cost
+
+Aggregates product costs used in the profit calculation.
 
 ```dax
 Total Cost = SUM(Sales[Total Product Cost])
 ```
 
-### Profit and Profit Margin %
+### Profit
+
+Calculates sales revenue minus product costs. This represents profit before other operating expenses.
 
 ```dax
 Profit = [Total Sales] - [Total Cost]
-
-Profit Margin % =
-DIVIDE(
-    [Profit],
-    [Total Sales]
-)
 ```
 
-Profit represents sales less product cost, rather than a complete income-statement net profit. `DIVIDE` returns blank when the denominator is zero or blank unless an alternate result is specified.
+### Profit Margin %
 
-## Orders and product performance
+Expresses profit as a percentage of total sales. `DIVIDE` returns blank for zero or blank denominators.
 
-### Total Orders and Average Order Value
+```dax
+Profit Margin % =
+DIVIDE([Profit], [Total Sales])
+```
+
+### Total Orders
+
+Counts distinct sales orders within the current filter context.
 
 ```dax
 Total Orders = DISTINCTCOUNT('Sales Order'[Sales Order])
-
-Average Order Value =
-DIVIDE(
-    [Total Sales],
-    [Total Orders]
-)
 ```
 
-Order counts use distinct `Sales Order` identifiers.
+### Average Order Value
 
-### Quantity Sold and Average Selling Price
+Calculates average revenue per order.
 
 ```dax
-Quantity Sold = SUM(Sales[Order Quantity])
-
-Average Selling Price =
-DIVIDE(
-    [Total Sales],
-    [Quantity Sold]
-)
+Average Order Value =
+DIVIDE([Total Sales], [Total Orders])
 ```
 
-`Average Selling Price` is a sales-weighted amount per unit, not an unweighted average of product list prices.
+### Sales LY
 
-## Prior-year and year-over-year comparisons
-
-### Sales LY and Sales YoY %
+Evaluates total sales for the corresponding period in the previous year.
 
 ```dax
 Sales LY =
@@ -74,7 +66,15 @@ CALCULATE(
     [Total Sales],
     SAMEPERIODLASTYEAR('Date'[Date])
 )
+```
 
+The exported model also includes `Sales PY` with the same DAX expression as `Sales LY`.
+
+### Sales YoY %
+
+Calculates the percentage change in sales compared with the previous year.
+
+```dax
 Sales YoY % =
 DIVIDE(
     [Total Sales] - [Sales LY],
@@ -82,9 +82,9 @@ DIVIDE(
 )
 ```
 
-`SAMEPERIODLASTYEAR` shifts the current date context by one year. The export also includes a `Sales PY` measure with the same expression as `Sales LY`.
-
 ### Orders PY and Orders YoY %
+
+`Orders PY` calculates distinct sales orders for the corresponding period in the previous year. `Orders YoY %` measures the percentage change compared with that period.
 
 ```dax
 Orders PY =
@@ -100,13 +100,41 @@ DIVIDE(
 )
 ```
 
-Other prior-year and YoY measures follow this pattern for profit, average order value, quantity sold, average selling price, customer counts, and sales per customer.
+Other prior-year and year-over-year measures follow this pattern for profit, average order value, quantity sold, average selling price, customer counts, and sales per customer.
 
-## Customer analysis: Internet channel
+## Products — Product performance
 
-The exported customer measures intentionally apply the **Internet** channel filter. This is important when interpreting customer KPIs alongside overall sales figures.
+The Products page uses sales, quantity, pricing, and profitability measures to evaluate product and category performance.
+
+### Quantity Sold
+
+Calculates the total number of units sold within the current filter context.
+
+```dax
+Quantity Sold = SUM(Sales[Order Quantity])
+```
+
+### Average Selling Price
+
+Calculates average sales revenue per unit sold, rather than an unweighted average of product list prices.
+
+```dax
+Average Selling Price =
+DIVIDE(
+    [Total Sales],
+    [Quantity Sold]
+)
+```
+
+Product profitability is evaluated using the existing `Profit` and `Profit Margin %` measures defined in the Sales Dashboard section. Prior-year comparisons follow the same time-intelligence pattern.
+
+## Customers — Internet customer analysis
+
+The Customers page uses Internet-channel sales measures to analyze customer activity, purchasing behavior, and repeat purchases. These calculations are restricted to Internet sales and may differ from the overall sales KPIs.
 
 ### Total Customers
+
+Counts distinct customers with nonblank customer keys in the Internet sales channel.
 
 ```dax
 Total Customers =
@@ -117,9 +145,9 @@ CALCULATE(
 )
 ```
 
-Counts distinct, nonblank customer keys within Internet-channel sales.
-
 ### Customer Sales and Customer Orders
+
+`Customer Sales` calculates Internet-channel revenue, while `Customer Orders` counts distinct Internet sales orders.
 
 ```dax
 Customer Sales =
@@ -137,6 +165,8 @@ CALCULATE(
 
 ### Sales per Customer and Customer AOV
 
+`Sales per Customer` calculates average Internet sales revenue per customer. `Customer AOV` calculates average Internet revenue per order.
+
 ```dax
 Sales per Customer =
 DIVIDE(
@@ -152,6 +182,8 @@ DIVIDE(
 ```
 
 ### Repeat Customer Rate
+
+Calculates the percentage of Internet customers with at least two distinct orders in the current filter context.
 
 ```dax
 Repeat Customer Rate =
@@ -182,13 +214,15 @@ DIVIDE(
 )
 ```
 
-This measure considers an Internet-channel customer **repeat** if they have at least **two distinct sales orders** in the current filter context. The denominator is the Internet-channel `Total Customers` measure. It is not necessarily a lifetime retention metric.
+The denominator is the Internet-channel `Total Customers` measure. This reflects purchase frequency within the selected period, not necessarily lifetime customer retention.
 
-## Customer purchase frequency
+### Customer purchase frequency
 
-The revised Customers page adds a **Customer Purchase Frequency** chart that separates Internet customers by their number of distinct orders in the current filter context. These two formulas reflect the measures supplied during report development; unlike the preceding measures, they were **not part of the earlier exported TMDL** and should be reconfirmed against the updated Power BI model after saving.
+The **Customer Purchase Frequency** chart separates Internet customers by their number of distinct orders in the current filter context. The following two formulas were supplied during report development and were **not part of the earlier exported TMDL**; they should be reconfirmed against an updated Power BI model export.
 
 ### One-Time Customers
+
+Counts Internet customers with exactly one distinct order in the active date and filter context.
 
 ```dax
 One-Time Customers =
@@ -211,9 +245,9 @@ RETURN
     )
 ```
 
-Counts Internet customers with **exactly one** distinct order in the active date and filter context.
-
 ### Repeat Customers
+
+Counts Internet customers with two or more distinct orders in the selected context, consistent with the numerator logic of `Repeat Customer Rate`.
 
 ```dax
 Repeat Customers =
@@ -236,8 +270,6 @@ RETURN
     )
 ```
 
-Counts Internet customers with **two or more** distinct orders in the selected context, matching the numerator logic of `Repeat Customer Rate`.
-
 ### Validation
 
 The measures should satisfy the following checks under the same filters:
@@ -252,9 +284,13 @@ DIVIDE([Repeat Customers], [Total Customers]) - [Repeat Customer Rate]
 
 Both checks should normally return zero (allowing for floating-point precision in the rate). These are optional temporary validation measures, not required dashboard metrics. The chart uses the two counts as separate bar values and displays actual customer counts.
 
-## Percentage-point changes and display measures
+## Dynamic formatting
+
+DAX measures also control how KPI comparisons are displayed, using directional arrows and formatted values to highlight changes in performance.
 
 ### Profit Margin Change
+
+Calculates the difference between the current profit margin and its prior-year value.
 
 ```dax
 Profit Margin Change =
@@ -262,6 +298,8 @@ Profit Margin Change =
 ```
 
 ### Profit Margin Change Display
+
+Displays the change in profit margin in percentage points, with directional arrows indicating increases and decreases.
 
 ```dax
 Profit Margin Change Display =
@@ -276,9 +314,11 @@ SWITCH(
 )
 ```
 
-Unlike a relative YoY percentage, this margin difference is displayed in **percentage points (pp)**. The report uses comparable presentation logic for `Repeat Customer Rate Display`.
+Unlike a relative year-over-year percentage, this margin difference is expressed in **percentage points (pp)**. The report uses comparable presentation logic for `Repeat Customer Rate Display`.
 
 ### Sales YoY Display
+
+Formats year-over-year sales changes as text with directional arrows, highlighting increases and decreases.
 
 ```dax
 Sales YoY Display =
@@ -293,15 +333,4 @@ SWITCH(
 )
 ```
 
-This measure returns formatted **text** with directional arrows, useful for cards but not interchangeable with the underlying numeric `Sales YoY %` measure.
-
-## Implementation notes
-
-- The TMDL uses **US-dollar format strings** for monetary measures.
-- The year-over-year calculations use `'Date'[Date]`, so the relationship and calendar context matter.
-- `Profit` is based only on `Total Sales` and `Total Cost`.
-- `Total Customers`, `Customer Sales`, `Customer Orders`, and `Repeat Customer Rate` apply the Internet-channel condition.
-- Both `Sales LY` and `Sales PY` are present with equivalent DAX in the provided export.
-- The exported TMDL also defines prior-year, YoY, and display measures for AOV, selling price, quantity, profit, and customer metrics.
-
-**Sources:** The earlier `_Measures` TMDL export and the two subsequently supplied customer purchase-frequency formulas. Reconfirm the latter in an updated export after saving the report. Relationship settings and Power Query transformations are outside the scope of the measures export.
+These display measures return formatted **text** for presentation, while the underlying numeric measures remain available for calculations and visual analysis.
