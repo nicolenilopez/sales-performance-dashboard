@@ -1,8 +1,8 @@
 # Report pages and business questions
 
-The Sales Performance Dashboard consists of three pages: **Sales Dashboard**, **Products**, and **Customers**. Together, they provide an overview of revenue and profitability, product performance, and Internet customer purchasing behavior.
+The Sales Performance Dashboard consists of three pages: **Overview**, **Products**, and **Customers**. Together, they provide an overview of revenue and profitability, product performance, and Internet customer purchasing behavior.
 
-## 1. Sales Dashboard — Performance Overview
+## 1. Overview — Sales Performance
 
 ![Sales Performance Overview](../screenshots/Sales%20Performance%20Dashboard%20-%20Overview.png)
 
