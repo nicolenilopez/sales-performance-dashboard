@@ -68,8 +68,6 @@ CALCULATE(
 )
 ```
 
-The exported model also includes `Sales PY` with the same DAX expression as `Sales LY`.
-
 ### Sales YoY %
 
 Calculates the percentage change in sales compared with the previous year.
@@ -269,20 +267,6 @@ RETURN
         FILTER(CustomerOrders, [@Orders] >= 2)
     )
 ```
-
-### Validation
-
-The measures should satisfy the following checks under the same filters:
-
-```dax
-Customer Count Check =
-[One-Time Customers] + [Repeat Customers] - [Total Customers]
-
-Repeat Rate Check =
-DIVIDE([Repeat Customers], [Total Customers]) - [Repeat Customer Rate]
-```
-
-Both checks should normally return zero (allowing for floating-point precision in the rate). These are optional temporary validation measures, not required dashboard metrics. The chart uses the two counts as separate bar values and displays actual customer counts.
 
 ## Dynamic formatting
 
