@@ -82,6 +82,26 @@ DIVIDE(
 )
 ```
 
+### Orders PY and Orders YoY %
+
+`Orders PY` calculates distinct sales orders for the corresponding period in the previous year. `Orders YoY %` measures the percentage change compared with that period.
+
+```dax
+Orders PY =
+CALCULATE(
+    [Total Orders],
+    SAMEPERIODLASTYEAR('Date'[Date])
+)
+
+Orders YoY % =
+DIVIDE(
+    [Total Orders] - [Orders PY],
+    [Orders PY]
+)
+```
+
+Other prior-year and year-over-year measures follow this pattern for profit, average order value, quantity sold, average selling price, customer counts, and sales per customer.
+
 ## Products — Product performance
 
 The Products page uses sales, quantity, pricing, and profitability measures to evaluate product and category performance.
@@ -107,26 +127,6 @@ DIVIDE(
 ```
 
 Product profitability is evaluated using the existing `Profit` and `Profit Margin %` measures defined in the Sales Dashboard section. Prior-year comparisons follow the same time-intelligence pattern.
-
-## Prior-year and year-over-year comparisons
-
-### Orders PY and Orders YoY %
-
-```dax
-Orders PY =
-CALCULATE(
-    [Total Orders],
-    SAMEPERIODLASTYEAR('Date'[Date])
-)
-
-Orders YoY % =
-DIVIDE(
-    [Total Orders] - [Orders PY],
-    [Orders PY]
-)
-```
-
-Other prior-year and YoY measures follow this pattern for profit, average order value, quantity sold, average selling price, customer counts, and sales per customer.
 
 ## Customers — Internet customer analysis
 
@@ -284,9 +284,13 @@ DIVIDE([Repeat Customers], [Total Customers]) - [Repeat Customer Rate]
 
 Both checks should normally return zero (allowing for floating-point precision in the rate). These are optional temporary validation measures, not required dashboard metrics. The chart uses the two counts as separate bar values and displays actual customer counts.
 
-## Percentage-point changes and display measures
+## Dynamic formatting
+
+DAX measures also control how KPI comparisons are displayed, using directional arrows and formatted values to highlight changes in performance.
 
 ### Profit Margin Change
+
+Calculates the difference between the current profit margin and its prior-year value.
 
 ```dax
 Profit Margin Change =
@@ -294,6 +298,8 @@ Profit Margin Change =
 ```
 
 ### Profit Margin Change Display
+
+Displays the change in profit margin in percentage points, with directional arrows indicating increases and decreases.
 
 ```dax
 Profit Margin Change Display =
@@ -308,9 +314,11 @@ SWITCH(
 )
 ```
 
-Unlike a relative YoY percentage, this margin difference is displayed in **percentage points (pp)**. The report uses comparable presentation logic for `Repeat Customer Rate Display`.
+Unlike a relative year-over-year percentage, this margin difference is expressed in **percentage points (pp)**. The report uses comparable presentation logic for `Repeat Customer Rate Display`.
 
 ### Sales YoY Display
+
+Formats year-over-year sales changes as text with directional arrows, highlighting increases and decreases.
 
 ```dax
 Sales YoY Display =
@@ -325,7 +333,7 @@ SWITCH(
 )
 ```
 
-This measure returns formatted **text** with directional arrows, useful for cards but not interchangeable with the underlying numeric `Sales YoY %` measure.
+These display measures return formatted **text** for presentation, while the underlying numeric measures remain available for calculations and visual analysis.
 
 ## Implementation notes
 
