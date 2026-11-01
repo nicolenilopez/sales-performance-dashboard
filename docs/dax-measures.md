@@ -1,8 +1,6 @@
-# Selected DAX measures and calculation logic
+# DAX Measures & Calculation Logic
 
-## Source and scope
-
-Most formulas below are transcribed from the project's exported **`_Measures` TMDL**. Two additional purchase-frequency measures were supplied during subsequent report development and are identified separately until confirmed in an updated TMDL export. Only selected measures are included to keep this portfolio documentation focused.
+This document highlights selected DAX measures used across the Sales Performance Dashboard's three report pages: **Sales Dashboard**, **Products**, and **Customers**. The examples cover sales and profitability KPIs, time intelligence, product performance, Internet customer purchasing behavior, and dynamic KPI formatting.
 
 ## Core sales and profitability
 
