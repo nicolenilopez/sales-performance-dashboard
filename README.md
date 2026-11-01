@@ -43,7 +43,7 @@ For the purpose and business questions behind each page, see [Report pages and b
 ## Technical implementation
 
 - **Power BI Desktop:** Three-page interactive report featuring KPI cards, time-series comparisons, product analysis, customer insights, and geographic visualizations.
-- **Data modeling:** Central `Sales` fact table connected to shared dimensions, with supporting tables for currency conversion and sales-reason analysis.
+- **Data modeling:** Central `Sales` fact table connected to dimensions for dates, products, customers, sales territories, and sales orders, with supporting tables for exchange-rate and sales-reason analysis.
 - **DAX:** Sales and profitability measures, year-over-year comparisons, order metrics, and Internet customer purchasing and repeat-order calculations.
 - **Model organization:** Dedicated `_Measures` table for calculations, with separate `Currency Rate` and `Sales Reason Bridge` structures.
 
