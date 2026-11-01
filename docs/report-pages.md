@@ -44,25 +44,23 @@ The Sales Performance Dashboard consists of three pages: **Sales Dashboard**, **
 
 ![Customer Analysis](../screenshots/Sales%20Performance%20Dashboard%20-%20Customers.png)
 
-**Purpose:** Analyze Internet customer purchasing behavior, purchase frequency, trends, and geographic distribution.
+**Purpose:** Analyze Internet customer activity, purchasing frequency, revenue contribution, and geographic distribution.
+
+**Visuals**
+- **KPI cards** — Total Customers, Sales per Customer, and Repeat Customer Rate, with prior-year comparisons.
+- **Customer Purchase Frequency** — Horizontal bars comparing one-time and repeat customer counts.
+- **Active Customers by Month** — Monthly customer activity compared with the previous year.
+- **Customers by Country** — Geographic distribution of Internet customers.
+- **Top 10 Customers** — Customer rankings by sales, including order counts and average order value.
 
 **Business questions**
-- How many distinct Internet customers are active in the selected period?
-- How much revenue does an Internet customer generate on average?
-- How many customers placed exactly one order, versus two or more distinct orders?
-- How is the number of active customers changing month by month and versus the previous year?
-- Where are Internet customers located, and which customers generate the most sales?
+- How many Internet customers are active within the selected period?
+- How much revenue does each customer generate on average?
+- What proportion of customers make repeat purchases?
+- How does customer activity compare with the previous year?
+- Which countries and customers contribute the most to Internet sales?
 
-**Page visuals**
-- **KPI cards:** Total Customers, Sales per Customer, and Repeat Customer Rate, each with prior-year comparisons.
-- **Customer Purchase Frequency:** Horizontal bars comparing One-Time Customers and Repeat Customers, showing customer counts.
-- **Active Customers by Month:** Current-period customers versus the prior year.
-- **Customers by Country:** Geographic distribution of customer activity.
-- **Top 10 Customers:** Customer-level sales, order counts, and average order value.
-
-**Key measures:** `Total Customers`, `Customer Sales`, `Customer Orders`, `Customer AOV`, `Sales per Customer`, `Repeat Customer Rate`, `One-Time Customers`, `Repeat Customers`, `Customers PY`, `Customers YoY %`, and `Sales per Customer YoY %`.
-
-**Important metric definition:** Customer metrics use the **Internet** sales channel. One-time customers have exactly one distinct Internet order, while repeat customers have at least two, within the current filter context. This is purchase frequency within the selected period, not lifetime retention.
+**Metric definition:** Customer metrics are restricted to the **Internet** sales channel. One-time customers have exactly one distinct order, while repeat customers have two or more within the selected filter context. These classifications represent purchasing frequency during the selected period, not lifetime customer retention.
 
 ## Filtering and interpretation
 
