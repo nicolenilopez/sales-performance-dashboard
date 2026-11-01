@@ -4,7 +4,7 @@ This document highlights selected DAX measures used across the Sales Performance
 
 ## Overview — Sales performance
 
-The Overview page uses revenue, profitability, order metrics, and time intelligence to provide an overview of sales performance.
+The Overview page uses revenue, profitability, order metrics, and time intelligence to summarize sales performance.
 
 ### Total Sales
 
