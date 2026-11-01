@@ -28,25 +28,25 @@ The `Sales` table is the central fact table used to calculate revenue, profitabi
 
 ## Relationships
 
-The central `Sales` fact table connects to its dimensions, primarily through one-to-many relationships. Additional relationships support date analysis, currency rates, and sales reasons.
+The model contains 11 active relationships connecting the `Sales` fact table, dimensions, and supporting tables.
 
-| Related table | Connected table |
+| From column | To column |
 | --- | --- |
-| `Sales` | `Date` |
-| `Sales` | `Product` |
-| `Sales` | `Customer` |
-| `Sales` | `Reseller` |
-| `Sales` | `Sales Territory` |
-| `Sales` | `Sales Order` |
-| `Sales` | `Currency` |
-| `Currency Rate` | `Date` |
-| `Currency Rate` | `Currency` |
-| `Sales Reason Bridge` | `Sales Order` |
-| `Sales Reason Bridge` | `Sales Reason` |
+| `Sales[SalesTerritoryKey]` | `Sales Territory[SalesTerritoryKey]` |
+| `Sales[ProductKey]` | `Product[ProductKey]` |
+| `Sales[SalesOrderLineKey]` | `Sales Order[SalesOrderLineKey]` |
+| `Sales[CustomerKey]` | `Customer[CustomerKey]` |
+| `Sales[OrderDateKey]` | `Date[DateKey]` |
+| `Sales[ResellerKey]` | `Reseller[ResellerKey]` |
+| `Sales[CurrencyKey]` | `Currency[CurrencyKey]` |
+| `Currency Rate[CurrencyKey]` | `Currency[CurrencyKey]` |
+| `Currency Rate[DateKey]` | `Date[DateKey]` |
+| `Sales Reason Bridge[SalesReasonKey]` | `Sales Reason[SalesReasonKey]` |
+| `Sales Reason Bridge[SalesOrderLineKey]` | `Sales Order[SalesOrderLineKey]` |
 
-The model includes active and inactive relationships between `Sales` and `Date`, representing different sales-related date contexts. The sales-reason bridge supports associations between sales orders and their corresponding sales reasons.
+The `Sales` table also has two inactive relationships with the `Date` dimension, through `DueDateKey` and `ShipDateKey`. These provide alternative date paths when required.
 
-The table summarizes relationships at the **table level**. Exact relationship columns, cardinalities, and cross-filter directions should be verified in Power BI Desktop before documenting them individually.
+The relationships involving `Sales Order` use bidirectional cross-filtering, with the `Sales`–`Sales Order` relationship configured as one-to-one.
 
 ## Supporting tables
 
