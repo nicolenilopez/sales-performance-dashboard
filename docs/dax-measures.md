@@ -216,7 +216,7 @@ The denominator is the Internet-channel `Total Customers` measure. This reflects
 
 ### Customer purchase frequency
 
-The **Customer Purchase Frequency** chart separates Internet customers by their number of distinct orders in the current filter context. The following two formulas were supplied during report development and were **not part of the earlier exported TMDL**; they should be reconfirmed against an updated Power BI model export.
+The **Customer Purchase Frequency** chart separates Internet customers by their number of distinct orders in the current filter context.
 
 ### One-Time Customers
 
