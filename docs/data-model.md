@@ -10,7 +10,7 @@ Solid relationship lines indicate active relationships, while dashed lines repre
 
 | Table | Description |
 | --- | --- |
-| `Sales` | Stores sales transactions, including sales amounts, product costs, order quantities, and transaction keys. |
+| `Sales` | Stores sales transactions, including sales amounts, product costs, order quantities, and transaction identifiers. |
 
 The `Sales` table is the central fact table used to calculate revenue, profitability, sales volume, and order-related metrics across the report.
 
@@ -62,6 +62,6 @@ The model also includes `_Measures`, a dedicated table used to organize DAX meas
 
 Base measures aggregate sales amounts, product costs, order quantities, and distinct sales orders. Additional DAX measures calculate profitability, profit margins, average order value, and prior-year comparisons.
 
-Customer measures are specifically filtered to Internet sales and support customer activity, purchasing frequency, and repeat customer analysis. These measures may therefore cover a different sales population than the overall sales KPIs.
+Customer measures are filtered to the Internet sales channel and support customer activity, purchase frequency, and repeat customer analysis. These measures may therefore cover a different sales population than the overall sales KPIs.
 
 See [DAX Measures & Calculation Logic](dax-measures.md) for selected measure definitions.
