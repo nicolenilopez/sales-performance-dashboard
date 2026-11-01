@@ -61,11 +61,3 @@ The Sales Performance Dashboard consists of three pages: **Sales Dashboard**, **
 - Which countries and customers contribute the most to Internet sales?
 
 **Metric definition:** Customer metrics are restricted to the **Internet** sales channel. One-time customers have exactly one distinct order, while repeat customers have two or more within the selected filter context. These classifications represent purchasing frequency during the selected period, not lifetime customer retention.
-
-## Filtering and interpretation
-
-The report uses date, product, geographic, and customer-related attributes for interactive breakdowns. Prior-year calculations use `'Date'[Date]` via `SAMEPERIODLASTYEAR`. Exact slicer interaction behavior is defined by the report configuration.
-
-The report's profit metric means **sales minus product cost**, not net income after all operating expenses.
-
-For implementation details, see [Data model and relationships](data-model.md) and [Selected DAX measures](dax-measures.md).
