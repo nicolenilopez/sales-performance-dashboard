@@ -22,7 +22,7 @@ The **Overview** brings together Total Sales, Profit, Profit Margin, Total Order
 
 | Page | What it helps analyze |
 | --- | --- |
-| **Sales Dashboard** | Sales performance, profitability, order trends, year-over-year comparisons, and geographic analysis. |
+| **Overview** | Sales performance, profitability, order trends, year-over-year comparisons, and geographic analysis. |
 | **Products** | Product and category sales, quantity sold, average selling price, and profit margins. |
 | **Customers** | Internet customer behavior, purchase frequency, monthly activity, and geographic distribution. |
 
@@ -32,7 +32,7 @@ The **Overview** brings together Total Sales, Profit, Profit Margin, Total Order
 
 Analyze product and category sales, quantities sold, average selling prices, and profit margins to identify top-performing products.
 
-### Customers — Customer Analysis
+### Customers — Internet Customer Analysis
 
 ![Customer Analysis](screenshots/Sales%20Performance%20Dashboard%20-%20Customers.png)
 
