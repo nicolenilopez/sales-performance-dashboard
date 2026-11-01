@@ -6,15 +6,21 @@ The Sales Performance Dashboard consists of three pages: **Sales Dashboard**, **
 
 ![Sales Performance Overview](../screenshots/Sales%20Performance%20Dashboard%20-%20Overview.png)
 
-**Purpose:** Provide a high-level picture of sales, profitability, and sales activity.
+**Purpose:** Summarize sales performance, profitability, order activity, and year-over-year trends.
+
+**Visuals**
+- **KPI cards** — Total Sales, Profit, Profit Margin, Total Orders, and Average Order Value, with prior-year comparisons.
+- **Monthly sales trends** — Sales performance over time compared with the previous year.
+- **Sales by product category** — Revenue distribution across product categories.
+- **Geographic sales analysis** — Sales performance across countries and territories.
 
 **Business questions**
-- How are total sales, profit, and order volume performing?
-- How do these metrics and average order value compare with the prior year?
-- What is the profit margin?
-- How does sales performance differ across periods and geographic markets?
+- How are sales, profitability, and order activity performing compared with the previous year?
+- How does monthly sales performance change over time?
+- Which product categories contribute the most revenue?
+- How does sales performance vary across geographic markets?
 
-**Key measures:** `Total Sales`, `Profit`, `Profit Margin %`, `Total Orders`, `Average Order Value`, `Sales YoY %`, `Profit YoY %`, `Orders YoY %`, and `AOV YoY %`.
+**Metric definition:** Profit represents sales revenue minus product cost, rather than net income after operating expenses.
 
 ## 2. Products — Product Performance
 
