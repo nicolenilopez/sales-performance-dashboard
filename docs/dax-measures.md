@@ -128,11 +128,13 @@ DIVIDE(
 
 Other prior-year and YoY measures follow this pattern for profit, average order value, quantity sold, average selling price, customer counts, and sales per customer.
 
-## Customer analysis: Internet channel
+## Customers — Internet customer analysis
 
-The exported customer measures intentionally apply the **Internet** channel filter. This is important when interpreting customer KPIs alongside overall sales figures.
+The Customers page uses Internet-channel sales measures to analyze customer activity, purchasing behavior, and repeat purchases. These calculations are restricted to Internet sales and may differ from the overall sales KPIs.
 
 ### Total Customers
+
+Counts distinct customers with nonblank customer keys in the Internet sales channel.
 
 ```dax
 Total Customers =
@@ -143,9 +145,9 @@ CALCULATE(
 )
 ```
 
-Counts distinct, nonblank customer keys within Internet-channel sales.
-
 ### Customer Sales and Customer Orders
+
+`Customer Sales` calculates Internet-channel revenue, while `Customer Orders` counts distinct Internet sales orders.
 
 ```dax
 Customer Sales =
@@ -163,6 +165,8 @@ CALCULATE(
 
 ### Sales per Customer and Customer AOV
 
+`Sales per Customer` calculates average Internet sales revenue per customer. `Customer AOV` calculates average Internet revenue per order.
+
 ```dax
 Sales per Customer =
 DIVIDE(
@@ -178,6 +182,8 @@ DIVIDE(
 ```
 
 ### Repeat Customer Rate
+
+Calculates the percentage of Internet customers with at least two distinct orders in the current filter context.
 
 ```dax
 Repeat Customer Rate =
@@ -208,13 +214,15 @@ DIVIDE(
 )
 ```
 
-This measure considers an Internet-channel customer **repeat** if they have at least **two distinct sales orders** in the current filter context. The denominator is the Internet-channel `Total Customers` measure. It is not necessarily a lifetime retention metric.
+The denominator is the Internet-channel `Total Customers` measure. This reflects purchase frequency within the selected period, not necessarily lifetime customer retention.
 
-## Customer purchase frequency
+### Customer purchase frequency
 
-The revised Customers page adds a **Customer Purchase Frequency** chart that separates Internet customers by their number of distinct orders in the current filter context. These two formulas reflect the measures supplied during report development; unlike the preceding measures, they were **not part of the earlier exported TMDL** and should be reconfirmed against the updated Power BI model after saving.
+The **Customer Purchase Frequency** chart separates Internet customers by their number of distinct orders in the current filter context. The following two formulas were supplied during report development and were **not part of the earlier exported TMDL**; they should be reconfirmed against an updated Power BI model export.
 
 ### One-Time Customers
+
+Counts Internet customers with exactly one distinct order in the active date and filter context.
 
 ```dax
 One-Time Customers =
@@ -237,9 +245,9 @@ RETURN
     )
 ```
 
-Counts Internet customers with **exactly one** distinct order in the active date and filter context.
-
 ### Repeat Customers
+
+Counts Internet customers with two or more distinct orders in the selected context, consistent with the numerator logic of `Repeat Customer Rate`.
 
 ```dax
 Repeat Customers =
@@ -261,8 +269,6 @@ RETURN
         FILTER(CustomerOrders, [@Orders] >= 2)
     )
 ```
-
-Counts Internet customers with **two or more** distinct orders in the selected context, matching the numerator logic of `Repeat Customer Rate`.
 
 ### Validation
 
