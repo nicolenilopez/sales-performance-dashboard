@@ -26,15 +26,19 @@ The Sales Performance Dashboard consists of three pages: **Sales Dashboard**, **
 
 ![Product Performance](../screenshots/Sales%20Performance%20Dashboard%20-%20Products.png)
 
-**Purpose:** Identify which products and product groups contribute to commercial results.
+**Purpose:** Analyze sales, profitability, quantities sold, and pricing across products and product categories.
+
+**Visuals**
+- **Product performance KPIs** — Sales, profit, profit margin, quantity sold, and average selling price.
+- **Sales by product category** — Comparison of revenue performance across product categories.
+- **Top-performing products** — Product-level ranking based on sales performance.
+- **Product performance details** — Product sales, quantities, pricing, and profitability comparisons.
 
 **Business questions**
-- Which products and categories generate the most sales?
-- How many units are sold?
-- How does average selling price compare with the previous year?
-- How do profit and margin vary across product groups?
-
-**Key measures:** `Total Sales`, `Profit`, `Profit Margin %`, `Quantity Sold`, `Average Selling Price`, `Quantity Sold YoY %`, and `Average Selling Price YoY %`.
+- Which products and categories generate the most revenue?
+- Which products have the highest sales volume?
+- How do average selling prices compare with the previous year?
+- How does profitability vary across products and categories?
 
 ## 3. Customers — Internet Customer Analysis
 
