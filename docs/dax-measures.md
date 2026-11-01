@@ -1,10 +1,10 @@
 # DAX Measures & Calculation Logic
 
-This document highlights selected DAX measures used across the Sales Performance Dashboard's three report pages: **Sales Dashboard**, **Products**, and **Customers**. The examples cover sales and profitability KPIs, time intelligence, product performance, Internet customer purchasing behavior, and dynamic KPI formatting.
+This document highlights selected DAX measures used across the Sales Performance Dashboard's three report pages: **Overview**, **Products**, and **Customers**. The examples cover sales and profitability KPIs, time intelligence, product performance, Internet customer purchasing behavior, and dynamic KPI formatting.
 
-## Sales Dashboard — Sales performance
+## Overview — Sales performance
 
-The Sales Dashboard page uses revenue, profitability, order metrics, and time intelligence to provide an overview of sales performance.
+The Overview page uses revenue, profitability, order metrics, and time intelligence to provide an overview of sales performance.
 
 ### Total Sales
 
@@ -126,7 +126,7 @@ DIVIDE(
 )
 ```
 
-Product profitability is evaluated using the existing `Profit` and `Profit Margin %` measures defined in the Sales Dashboard section. Prior-year comparisons follow the same time-intelligence pattern.
+Product profitability is evaluated using the existing `Profit` and `Profit Margin %` measures defined in the Overview section. Prior-year comparisons follow the same time-intelligence pattern.
 
 ## Customers — Internet customer analysis
 
