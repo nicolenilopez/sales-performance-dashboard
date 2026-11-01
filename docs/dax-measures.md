@@ -334,14 +334,3 @@ SWITCH(
 ```
 
 These display measures return formatted **text** for presentation, while the underlying numeric measures remain available for calculations and visual analysis.
-
-## Implementation notes
-
-- The TMDL uses **US-dollar format strings** for monetary measures.
-- The year-over-year calculations use `'Date'[Date]`, so the relationship and calendar context matter.
-- `Profit` is based only on `Total Sales` and `Total Cost`.
-- `Total Customers`, `Customer Sales`, `Customer Orders`, and `Repeat Customer Rate` apply the Internet-channel condition.
-- Both `Sales LY` and `Sales PY` are present with equivalent DAX in the provided export.
-- The exported TMDL also defines prior-year, YoY, and display measures for AOV, selling price, quantity, profit, and customer metrics.
-
-**Sources:** The earlier `_Measures` TMDL export and the two subsequently supplied customer purchase-frequency formulas. Reconfirm the latter in an updated export after saving the report. Relationship settings and Power Query transformations are outside the scope of the measures export.
