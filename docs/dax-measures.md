@@ -82,13 +82,23 @@ DIVIDE(
 )
 ```
 
-## Orders and product performance
+## Products — Product performance
 
-### Quantity Sold and Average Selling Price
+The Products page uses sales, quantity, pricing, and profitability measures to evaluate product and category performance.
+
+### Quantity Sold
+
+Calculates the total number of units sold within the current filter context.
 
 ```dax
 Quantity Sold = SUM(Sales[Order Quantity])
+```
 
+### Average Selling Price
+
+Calculates average sales revenue per unit sold, rather than an unweighted average of product list prices.
+
+```dax
 Average Selling Price =
 DIVIDE(
     [Total Sales],
@@ -96,7 +106,7 @@ DIVIDE(
 )
 ```
 
-`Average Selling Price` is a sales-weighted amount per unit, not an unweighted average of product list prices.
+Product profitability is evaluated using the existing `Profit` and `Profit Margin %` measures defined in the Sales Dashboard section. Prior-year comparisons follow the same time-intelligence pattern.
 
 ## Prior-year and year-over-year comparisons
 
