@@ -1,6 +1,6 @@
 # Report pages and business questions
 
-The Power BI report contains three pages: **Sales Dashboard**, **Products**, and **Customers**. Each provides a different view of sales performance using the measures defined in the semantic model.
+The Sales Performance Dashboard consists of three pages: **Sales Dashboard**, **Products**, and **Customers**. Together, they provide an overview of revenue and profitability, product performance, and Internet customer purchasing behavior.
 
 ## 1. Sales Dashboard — Performance Overview
 
